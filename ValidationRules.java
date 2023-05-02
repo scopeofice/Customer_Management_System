@@ -6,11 +6,12 @@ import java.util.List;
 
 import Exceptions.AgeNotAcceptable;
 import Exceptions.CustomerNotFoundException;
+import Exceptions.EmailAlreadyExistsException;
 import Exceptions.InvalidPlanException;
 
 public class ValidationRules {
 	public static Customer validateAllInputs(String firstName, String lastName, String email, String password,
-			String dob, String plan, List<Customer> customer) throws CustomerNotFoundException, InvalidPlanException, AgeNotAcceptable {
+			String dob, String plan, List<Customer> customer) throws CustomerNotFoundException, InvalidPlanException, AgeNotAcceptable, EmailAlreadyExistsException {
 		checkForDuplicate(email, customer);
 		ServicePlan validPlan = parseAndValidatePlan(plan);
 		LocalDate dateOfBirth = parseAndValidateAge(dob);
@@ -53,10 +54,10 @@ public class ValidationRules {
 
 	}
 
-	public static void checkForDuplicate(String newEmail, List<Customer> customer) throws CustomerNotFoundException {
+	public static void checkForDuplicate(String newEmail, List<Customer> customer) throws EmailAlreadyExistsException {
 		Customer newCustomer = new Customer(newEmail);
 		if (customer.contains(newCustomer))
-			throw new CustomerNotFoundException("Customer with email " + newEmail + " not found.");
+			throw new EmailAlreadyExistsException("Customer with email " + newEmail + " not found.");
 	}
 
 	public static LocalDate parseAndValidateAge(String dateOfBirth) throws  AgeNotAcceptable{
