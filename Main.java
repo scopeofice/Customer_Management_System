@@ -23,11 +23,17 @@ public class CustomerManagmentSystem {
 				System.out.println("5. Search for a customer by email");
 				System.out.println("6. Remove a customer by email");
 				System.out.println("7. Unsubscribe");
-				System.out.println("7. Change plan");
+				System.out.println("8. Change plan");
 				System.out.println("0. Exit");
 				try {
 					switch (sc.next()) {
 					case "1":
+						System.out.println("----Service Plans----");
+						for(ServicePlan p:ServicePlan.values())
+						{
+							System.out.println(p);
+						}
+						System.out.println("---------------------");
 						System.out.println("Enter Details : firstName, lastName, email, password, dob(yr-mon-day), plan");
 						Customer validCustomer = validateAllInputs(sc.next(), sc.next(), sc.next(), sc.next(),
 								sc.next(), sc.next(), customerList);
