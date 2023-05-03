@@ -2,7 +2,7 @@ package Customer_Management_System;
 
 import java.time.LocalDate;
 
-public class Customer {
+public class Customer implements Comparable<Customer>{
 	
 	private int CustomerId;
     private String firstName;
@@ -95,5 +95,10 @@ public class Customer {
 			return this.email.equals(((Customer)o).email);
 		return false;
 	}
+	@Override
+	public int compareTo(Customer anotherCustomer) {
+		return this.email.compareTo(anotherCustomer.email);
+	}
+	
     
 }
