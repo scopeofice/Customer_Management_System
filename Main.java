@@ -1,9 +1,22 @@
 package Tester;
 
-import static Customer_Management_System.ValidationRules.*;
+import static Customer_Management_System.ValidationRules.parseAndValidatePlan;
+import static Customer_Management_System.ValidationRules.removeCustomer;
+import static Customer_Management_System.ValidationRules.validateAllInputs;
+import static Customer_Management_System.ValidationRules.validateEmail;
+import static Customer_Management_System.ValidationRules.validateEmailPass;
+import static Customer_Management_System.ValidationRules.removeServicePlan;
+
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+
+import com.order.CustomerPriceComparator;
+import com.order.CustomerPriceDateComparator;
+
 import Customer_Management_System.Customer;
 import Customer_Management_System.ServicePlan;
 
@@ -24,6 +37,12 @@ public class CustomerManagmentSystem {
 				System.out.println("6. Remove a customer by email");
 				System.out.println("7. Unsubscribe");
 				System.out.println("8. Change plan");
+				System.out.println("9. Delete plan");
+				System.out.println("10. Sort by email");
+				System.out.println("11. Sort by price");
+				System.out.println("12. Sort by	date and price");
+				System.out.println("13. Sort by name and price");
+
 				System.out.println("0. Exit");
 				try {
 					switch (sc.next()) {
@@ -77,10 +96,45 @@ public class CustomerManagmentSystem {
 					case "8":
 					    System.out.println("Enter email and password");
 					    index= validateEmailPass(sc.next(),sc.next(),customerList);
+					    System.out.println("Enter new plan");
 					    ServicePlan plan=parseAndValidatePlan(sc.next());
 						customerList.get(index).setRegistrationAmount(plan.getRegistrationAmount());
 						System.out.println("Your plan is changed Successfully.");
 						break;
+					case "9":
+					    System.out.println("Enter new plan");
+					    removeServicePlan(sc.next(),customerList);
+						System.out.println("Removed Successfully.");
+						break;
+					case "10":
+						System.out.println("Sorted by email");
+						Collections.sort(customerList);
+						break;
+					case "11":
+						System.out.println("Sorted by Price");
+						Collections.sort(customerList,new CustomerPriceComparator());
+						break;
+					case "12":
+						System.out.println("Sorted by Date and Price");
+						Collections.sort(customerList,new CustomerPriceDateComparator());
+						break;
+					case "13":
+						System.out.println("Sorted by First name and price");
+						Collections.sort(customerList, new Comparator<Customer>(){
+
+							@Override
+							public int compare(Customer o1, Customer o2) {
+							int retVal=o1.getFirstName().compareTo(o2.getFirstName());
+							if(retVal==0)
+								if(retVal==0)
+									if(o1.getRegistrationAmount() < o2.getRegistrationAmount())
+										return -1;
+									if(o1.getRegistrationAmount() == o2.getRegistrationAmount())
+										return 0;
+								return 1;
+							}
+							
+						});
 					case "0":
 						exit = true;
 						break;
