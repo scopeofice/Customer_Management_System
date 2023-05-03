@@ -121,19 +121,10 @@ public class CustomerManagmentSystem {
 					case "13":
 						System.out.println("Sorted by First name and price");
 						Collections.sort(customerList, new Comparator<Customer>(){
-
 							@Override
 							public int compare(Customer o1, Customer o2) {
-							int retVal=o1.getFirstName().compareTo(o2.getFirstName());
-							if(retVal==0)
-								if(retVal==0)
-									if(o1.getRegistrationAmount() < o2.getRegistrationAmount())
-										return -1;
-									if(o1.getRegistrationAmount() == o2.getRegistrationAmount())
-										return 0;
-								return 1;
+							return o1.getFirstName().compareTo(o2.getFirstName());
 							}
-							
 						});
 					case "0":
 						exit = true;
