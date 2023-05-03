@@ -12,13 +12,7 @@ public enum ServicePlan {
     public double getRegistrationAmount() {
         return registrationAmount;
     }
-    public double setRegistrationAmount() {
-    	return registrationAmount;
-    }
-   
-    
-
-	@Override
+    	@Override
 	public String toString() {
 		return name()+" Plan charges: "+registrationAmount;
 	}
