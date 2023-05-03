@@ -2,6 +2,7 @@ package Customer_Management_System;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Iterator;
 import java.util.List;
 
 import Exceptions.AgeNotAcceptable;
@@ -20,6 +21,14 @@ public class ValidationRules {
 		
 	}
 	
+	public static void removeServicePlan(String plan,List<Customer> customerList) throws InvalidPlanException{
+		ServicePlan newPlan=ServicePlan.valueOf(plan.toUpperCase());
+		Iterator<Customer> itr=customerList.iterator();
+		if(itr.hasNext())
+			if(itr.next().getPlan().equals(newPlan))
+				itr.remove();
+				
+	}
 	
 	
 	public static void removeCustomer(String email,List<Customer> customerList) throws CustomerNotFoundException{
