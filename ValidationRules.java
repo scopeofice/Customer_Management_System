@@ -24,7 +24,7 @@ public class ValidationRules {
 	public static void removeServicePlan(String plan,List<Customer> customerList) throws InvalidPlanException{
 		ServicePlan newPlan=ServicePlan.valueOf(plan.toUpperCase());
 		Iterator<Customer> itr=customerList.iterator();
-		if(itr.hasNext())
+		while(itr.hasNext())
 			if(itr.next().getPlan().equals(newPlan))
 				itr.remove();
 				
