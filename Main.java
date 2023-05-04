@@ -1,16 +1,17 @@
 package Tester;
 
 import static Customer_Management_System.ValidationRules.parseAndValidatePlan;
+import static Customer_Management_System.ValidationRules.payForSub;
 import static Customer_Management_System.ValidationRules.removeCustomer;
+import static Customer_Management_System.ValidationRules.removeServicePlan;
+import static Customer_Management_System.ValidationRules.sortNameAndPrice;
 import static Customer_Management_System.ValidationRules.validateAllInputs;
 import static Customer_Management_System.ValidationRules.validateEmail;
 import static Customer_Management_System.ValidationRules.validateEmailPass;
-import static Customer_Management_System.ValidationRules.removeServicePlan;
-
+import static Customer_Management_System.ValidationRules.unsubscribePlan;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,9 +41,10 @@ public class CustomerManagmentSystem {
 				System.out.println("9. Delete plan");
 				System.out.println("10. Sort by email");
 				System.out.println("11. Sort by price");
-				System.out.println("12. Sort by	date and price");
+				System.out.println("12. Sort by date and price");
 				System.out.println("13. Sort by name and price");
-
+				System.out.println("14. Renew Plan");
+				System.out.println("15. Only for admin - remove plan");
 				System.out.println("0. Exit");
 				try {
 					switch (sc.next()) {
@@ -53,9 +55,9 @@ public class CustomerManagmentSystem {
 							System.out.println(p);
 						}
 						System.out.println("---------------------");
-						System.out.println("Enter Details : firstName, lastName, email, password, dob(yr-mon-day), plan");
-						Customer validCustomer = validateAllInputs(sc.next(), sc.next(), sc.next(), sc.next(),
-								sc.next(), sc.next(), customerList);
+						System.out.println("Enter Details : firstName, lastName, email, password, dob(yr-mon-day), Date of subscription(yr-mon-day), plan, Price");
+						Customer validCustomer = validateAllInputs(sc.next(), sc.next(), sc.next(), sc.next(), sc.next(),
+								sc.next(), sc.next(), sc.nextDouble(), customerList);
 						customerList.add(validCustomer);
 						break;
 					case "2":
@@ -120,12 +122,18 @@ public class CustomerManagmentSystem {
 						break;
 					case "13":
 						System.out.println("Sorted by First name and price");
-						Collections.sort(customerList, new Comparator<Customer>(){
-							@Override
-							public int compare(Customer o1, Customer o2) {
-							return o1.getFirstName().compareTo(o2.getFirstName());
-							}
-						});
+						sortNameAndPrice(customerList);
+						break;
+					case "14":
+						System.out.println("Enter email and password");
+						index=validateEmailPass(sc.next(),sc.next(),customerList);
+						System.out.println("Enter Amount");
+						double regAmount=sc.nextDouble();
+						payForSub(regAmount,index,customerList);
+					case "15":
+						unsubscribePlan(customerList);
+						System.out.println("Unsubcribe successfully");
+						break;
 					case "0":
 						exit = true;
 						break;
