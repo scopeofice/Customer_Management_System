@@ -12,10 +12,15 @@ public enum ServicePlan {
     public double getRegistrationAmount() {
         return registrationAmount;
     }
-    	@Override
+	
+	@Override
 	public String toString() {
-		return name()+" Plan charges: "+registrationAmount;
+		return super.toString();
 	}
+
+	public static boolean isValidPrice(ServicePlan plan, double price) {
+        return (plan.getRegistrationAmount() == price);
+ }
     
 }
 
