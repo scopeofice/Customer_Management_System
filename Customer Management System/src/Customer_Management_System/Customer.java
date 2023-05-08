@@ -11,11 +11,12 @@ public class Customer implements Comparable<Customer>{
     private String password;
     private double registrationAmount;
     private LocalDate dob;
-    private ServicePlan plan;
+    private LocalDate dateOfSub;
+    private ServicePlan plan; 
 
     private static int idCounter = 0;
 
-    public Customer(String firstName, String lastName, String email, String password, LocalDate dob, ServicePlan plan) {
+    public Customer(String firstName, String lastName, String email, String password, LocalDate dob, LocalDate dateOfSub, ServicePlan plan, double registrationAmount) {
         this.CustomerId = ++idCounter;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,6 +24,7 @@ public class Customer implements Comparable<Customer>{
         this.password = password;
         this.registrationAmount = plan.getRegistrationAmount();
         this.dob = dob;
+        this.dateOfSub=dateOfSub;
         this.plan = plan;
     }
     
@@ -31,7 +33,15 @@ public class Customer implements Comparable<Customer>{
     }
 
 
-    public int getCustomerId() {
+    public LocalDate getDateOfSub() {
+		return dateOfSub;
+	}
+
+	public void setDateOfSub(LocalDate dateOfSub) {
+		this.dateOfSub = dateOfSub;
+	}
+
+	public int getCustomerId() {
         return CustomerId;
     }
 
